@@ -2,6 +2,7 @@ var webAppPrefix = "/";
 
 var interval=null;
 var configName="petsciiconfig";
+var previews = {};
 
 if (typeof String.prototype.startsWith !== 'function') {
 	String.prototype.startsWith = function(suffix) {
@@ -174,6 +175,7 @@ function enableDragAndDrop(element) {
 }
 
 function convert() {
+    previews = {};
 	if (jQuery("#hiddennames input").length == 0) {
 		alert("Nothing to convert. Please upload at least one source image!");
 		return;
@@ -196,8 +198,11 @@ function updateConsole() {
             var posPreview2=text.indexOf("~#~#", posPreview+4);
             var preview = text.substring(posPreview+4, posPreview2);
             text=text.substring(0, posPreview)+text.substring(posPreview2+5);
-            jQuery("#preview").append("<img style='margin-right:10px' src='/WebPetscii/Download?preview="+preview+"'/>");
-            console.log("Added preview image: "+preview);
+            if (!previews[preview]) {
+                jQuery("#preview").append("<img style='margin-right:10px' src='/WebPetscii/Download?preview="+preview+"'/>");
+                console.log("Added preview image: "+preview);
+                previews[preview]=true;
+            }
             rep = true;
         }
     } while(rep);

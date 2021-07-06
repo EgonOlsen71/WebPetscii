@@ -365,7 +365,7 @@ public class Converter extends HttpServlet {
         params.setPlatform(request.getParameter("platform"));
         params.setBackgroundDefault(getBoolean("backgrounddefault", request));
         params.setExcludeAlpha(getBoolean("alpha", request));
-        params.setLowerCase(getBoolean("low", request));
+        params.setLowerCase(getBoolean("lower", request));
         params.setBackground(getNumber("background", request));
         params.setColorMapper(getNumber("colormapper", request));
         params.setPrescale(getNumber("prescale", request));

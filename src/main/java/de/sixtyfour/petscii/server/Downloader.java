@@ -51,7 +51,7 @@ public class Downloader extends HttpServlet {
 
 		response.setContentType("application/octet-stream");
 		response.setHeader("Content-disposition", "attachment; filename="+ file.substring(file.indexOf("/")+1));
-		sendFile(response, file);
+		sendFile(response, file, true);
 	}
 
 	private void doPreview(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -67,10 +67,10 @@ public class Downloader extends HttpServlet {
 		}
 
 		response.setContentType("image/png");
-		sendFile(response, file);
+		sendFile(response, file, false);
 	}
 
-	private void sendFile(HttpServletResponse response, String file) throws IOException {
+	private void sendFile(HttpServletResponse response, String file, boolean includeParent) throws IOException {
 		ServletOutputStream os = response.getOutputStream();
 		ServletConfig sc = getServletConfig();
 		String path = sc.getInitParameter("uploadpath");
@@ -85,14 +85,16 @@ public class Downloader extends HttpServlet {
 		} catch (Exception e) {
 			Logger.log("Failed to transfer file: " + file, e);
 		} finally {
-			delete(bin);
+			delete(bin, includeParent);
 		}
 	}
 
-	private void delete(File bin) {
+	private void delete(File bin, boolean includeParent) {
 		Logger.log("Deleting file: "+bin);
 		boolean ok1=bin.delete();
-		boolean ok2=bin.getParentFile().delete();
-		Logger.log("Status: "+ok1+"/"+ok2);
+		if (includeParent) {
+			boolean ok2 = bin.getParentFile().delete();
+			Logger.log("Status: " + ok1 + "/" + ok2);
+		}
 	}
 }
