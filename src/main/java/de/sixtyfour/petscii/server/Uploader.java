@@ -32,6 +32,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class Uploader extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+
+	private final static long MAX_FILE_SIZE=1024*1024*2;
 	
 	private final static String[] ALLOWED_EXTENSIONS = { ".jpg", ".png", ".jpeg" };
 
@@ -66,9 +68,14 @@ public class Uploader extends HttpServlet {
 
 			Files.copy(is, target, StandardCopyOption.REPLACE_EXISTING);
 			
-			if (target.toFile().length()==0 || target.toFile().length()>65536) {
+			if (target.toFile().length()==0) {
 				Logger.log("Upload failed, file size mismatch: " + fileName);
 				returnError(os);
+			}
+
+			if (target.toFile().length()>MAX_FILE_SIZE) {
+				Logger.log("Upload failed, file too large: " + fileName);
+				returnError(os, "Max. file size is "+MAX_FILE_SIZE+" bytes!");
 			}
 			
 			Logger.log("Upload ok: " + fileName);
@@ -126,9 +133,14 @@ public class Uploader extends HttpServlet {
 	}
 
 	private void returnError(ServletOutputStream os) {
+		returnError(os, null);
+	}
+
+	private void returnError(ServletOutputStream os, String txt) {
 		try {
 			JsonResult res = new JsonResult();
 			res.setType("error");
+			res.setText(txt);
 			ObjectMapper objectMapper = new ObjectMapper();
 			objectMapper.writeValue(os, res);
 		} catch (Exception e) {

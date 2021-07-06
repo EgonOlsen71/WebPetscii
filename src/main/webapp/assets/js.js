@@ -258,8 +258,7 @@ function uploadFile(file, element) {
 			function(item) {
 				if (item.type == 'error') {
 					jElement.css('background-color', '#f52020');
-					jElement.find('.uploadmsg').html(
-							'Unsupported file format!');
+					jElement.find('.uploadmsg').html(item.text?item.text:'Unsupported file format!');
 				} else {
 					jElement.css('background-color', '#7C70DA');
 					jElement.find('.uploadmsg').html('Drop file here...');

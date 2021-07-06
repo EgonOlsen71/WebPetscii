@@ -7,10 +7,8 @@ package de.sixtyfour.petscii.server;
  */
 public class JsonResult
 {
-
   private String text;
   private String type;
- 
 
   public String getText()
   {
