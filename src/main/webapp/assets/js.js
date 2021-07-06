@@ -188,6 +188,20 @@ function convert() {
 function updateConsole() {
 	console.log("Updating console...");
 	var text=jQuery("#conversiontarget").contents().text();
+
+    do {
+        var rep = false;
+        var posPreview=text.indexOf("~#~#");
+        if (posPreview!=-1) {
+            var posPreview2=text.indexOf("~#~#", posPreview+4);
+            var preview = text.substring(posPreview+4, posPreview2);
+            text=text.substring(0, posPreview)+text.substring(posPreview2+5);
+            jQuery("#preview").append("<img style='margin-right:10px' src='/WebPetscii/Download?preview="+preview+"'/>");
+            console.log("Added preview image: "+preview);
+            rep = true;
+        }
+    } while(rep);
+
 	var pos=text.indexOf("~~~~");
 	var download;
 	if (pos!=-1) {
@@ -202,7 +216,7 @@ function updateConsole() {
 		}
 		jQuery("#runagain").show();
 	}
-		
+
 	text = text.replace(/---------------------------------------\n/g, "");
 	jQuery("#console").text(text);
 	jQuery(document).scrollTop(jQuery(document).height());

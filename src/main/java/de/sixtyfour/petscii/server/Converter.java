@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -223,7 +227,9 @@ public class Converter extends HttpServlet {
                 ConvertedData data = bitmap.convertToPetscii(8, false, petscii, tedMode);
 
                 if (formats.contains("image")) {
-                    res.add(Saver.savePetsciiImage(rawPic, bitmap, folder));
+                    String imgFile = Saver.savePetsciiImage(rawPic, bitmap, folder);
+                    res.add(imgFile);
+                    addPreview(path, imgFile, os);
                 }
                 if (formats.contains("basic")) {
                     res.add(Saver.savePetsciiBasicCode(rawPic, data, folder));
@@ -245,6 +251,26 @@ public class Converter extends HttpServlet {
         }
 
         return true;
+    }
+
+    private void addPreview(String path, String imgFile, ServletOutputStream os) {
+        int pos=imgFile.lastIndexOf("/");
+        String oldFile=imgFile;
+        if (pos!=-1) {
+            new File(path+"prev/").mkdirs();
+            String fileName="prev/prev_"+UUID.randomUUID()+"_"+imgFile.substring(pos+1).toLowerCase();
+            imgFile=path+fileName;
+            Path to = Paths.get(imgFile);
+            Path from = Paths.get(oldFile);
+            try {
+                Files.copy(from, to, StandardCopyOption.REPLACE_EXISTING);
+                os.print("~#~#"+fileName+"~#~#\n");
+                out("Created preview image: "+imgFile);
+            } catch(Exception e) {
+                Logger.log("Failed to copy file!", e);
+                return;
+            }
+        }
     }
 
     private void setupOutputStream(ServletOutputStream os) {

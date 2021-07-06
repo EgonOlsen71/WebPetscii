@@ -34,6 +34,10 @@ public class Downloader extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		if (request.getParameter("preview") != null) {
+			doPreview(request, response);
+			return;
+		}
 		String file = request.getParameter("file");
 		if (file.contains("..") || file.contains("\\") || file.startsWith("/")) {
 			Logger.log("Invalid file name: " + file);
@@ -47,7 +51,26 @@ public class Downloader extends HttpServlet {
 
 		response.setContentType("application/octet-stream");
 		response.setHeader("Content-disposition", "attachment; filename="+ file.substring(file.indexOf("/")+1));
+		sendFile(response, file);
+	}
 
+	private void doPreview(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String file = request.getParameter("preview");
+		if (file.contains("..") || !file.startsWith("prev/")) {
+			Logger.log("Invalid image name: " + file);
+			return;
+		}
+
+		if (!file.endsWith(".png")) {
+			Logger.log("Invalid image name: " + file);
+			return;
+		}
+
+		response.setContentType("image/png");
+		sendFile(response, file);
+	}
+
+	private void sendFile(HttpServletResponse response, String file) throws IOException {
 		ServletOutputStream os = response.getOutputStream();
 		ServletConfig sc = getServletConfig();
 		String path = sc.getInitParameter("uploadpath");
@@ -56,15 +79,14 @@ public class Downloader extends HttpServlet {
 		byte[] buffer = new byte[8192];
 		int len = 0;
 		try (FileInputStream fis = new FileInputStream(bin)) {
-	        while ((len = fis.read(buffer)) > -1) {
-	            os.write(buffer, 0, len);
-	        }
+			while ((len = fis.read(buffer)) > -1) {
+				os.write(buffer, 0, len);
+			}
 		} catch (Exception e) {
 			Logger.log("Failed to transfer file: " + file, e);
 		} finally {
 			delete(bin);
 		}
-
 	}
 
 	private void delete(File bin) {
