@@ -223,6 +223,7 @@ public class Converter extends HttpServlet {
                 if (formats.contains("bbs")) {
                     petscii.removeControlCodes();
                 }
+                petscii.setSymbolBoost(params.getBoost());
 
                 ConvertedData data = bitmap.convertToPetscii(8, false, petscii, tedMode);
 
@@ -369,6 +370,7 @@ public class Converter extends HttpServlet {
         params.setBackground(getNumber("background", request));
         params.setColorMapper(getNumber("colormapper", request));
         params.setPrescale(getNumber("prescale", request));
+        params.setBoost((float) getNumber("boost", request)/10f);
 
         return params;
     }

@@ -16,6 +16,8 @@ public class Parameters {
 
     private int prescale;
 
+    private float boost;
+
     private boolean excludeAlpha;
 
     private boolean lowerCase;
@@ -26,6 +28,14 @@ public class Parameters {
 
     public void setPlatform(String platform) {
         this.platform = platform;
+    }
+
+    public float getBoost() {
+        return boost;
+    }
+
+    public void setBoost(float boost) {
+        this.boost = boost;
     }
 
     public int getColorMapper() {

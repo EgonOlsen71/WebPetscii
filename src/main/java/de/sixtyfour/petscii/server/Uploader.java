@@ -70,11 +70,13 @@ public class Uploader extends HttpServlet {
 			
 			if (target.toFile().length()==0) {
 				Logger.log("Upload failed, file size mismatch: " + fileName);
+				target.toFile().delete();
 				returnError(os);
 			}
 
 			if (target.toFile().length()>MAX_FILE_SIZE) {
 				Logger.log("Upload failed, file too large: " + fileName);
+				target.toFile().delete();
 				returnError(os, "Max. file size is "+MAX_FILE_SIZE+" bytes!");
 			}
 			
