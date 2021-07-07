@@ -155,7 +155,7 @@ public class Converter extends HttpServlet {
         scale = Math.max(1, Math.min(4, scale));
 
         Integer bgColor = params.getBackground();
-        if (bgColor >=0) {
+        if (bgColor >=0 && !params.isBackgroundDefault()) {
             bgColor = Math.max(0, Math.min(tedMode ? 127 : 15, bgColor));
         } else {
             bgColor=null;
