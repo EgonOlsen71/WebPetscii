@@ -115,6 +115,9 @@ public class Converter extends HttpServlet {
                 } finally {
                     File toDel = new File(file);
                     toDel.delete();
+                    if (file.endsWith(".koa")) {
+                        new File(file+".png").delete();
+                    }
                     if (!dirName.equals(lastDir)) {
                         cnt++;
                         lastDir = dirName;
@@ -244,6 +247,17 @@ public class Converter extends HttpServlet {
 
                 out("Background color is: " + data.getBackGroundColor());
 
+                if (params.isKoala()) {
+                    long start = System.currentTimeMillis();
+                    out("Koala conversion in progres...");
+                    File koalaFile = Saver.createTempFileName(rawPic, folder, "koala.koa");
+                    String koalaName = koalaFile.toString().replace("\\", "/");
+                    KoalaConverter.convert(pic.toString(), koalaName, new Vic2Colors(), 1, (float) params.getKoalaDither()/100, true);
+                    res.add(koalaName);
+                    addPreview(path, koalaName+".png", os);
+                    out("Koala conversion done in "+(System.currentTimeMillis()-start)+"ms!");
+                }
+
                 out(srcFile + " converted in " + (System.currentTimeMillis() - s) + "ms!\n\n");
             } catch (Exception e) {
                 out("Failed to process " + pic + ": " + e.getMessage());
@@ -321,6 +335,9 @@ public class Converter extends HttpServlet {
             for (String file : res) {
                 File fi = new File(file);
                 fi.delete();
+                if (file.endsWith(".koa")) {
+                    new File(file+".png").delete();
+                }
                 fi.getParentFile().delete();
             }
         }
@@ -371,6 +388,8 @@ public class Converter extends HttpServlet {
         params.setColorMapper(getNumber("colormapper", request));
         params.setPrescale(getNumber("prescale", request));
         params.setBoost((float) getNumber("boost", request)/10f);
+        params.setKoala(getBoolean("koala", request));
+        params.setKoalaDither(getNumber("boost", request));
 
         return params;
     }

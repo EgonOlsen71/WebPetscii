@@ -22,6 +22,10 @@ public class Parameters {
 
     private boolean lowerCase;
 
+    private boolean koala;
+
+    private int koalaDither;
+
     public String getPlatform() {
         return platform;
     }
@@ -84,5 +88,21 @@ public class Parameters {
 
     public void setLowerCase(boolean lowerCase) {
         this.lowerCase = lowerCase;
+    }
+
+    public boolean isKoala() {
+        return koala;
+    }
+
+    public void setKoala(boolean koala) {
+        this.koala = koala;
+    }
+
+    public int getKoalaDither() {
+        return koalaDither;
+    }
+
+    public void setKoalaDither(int koalaDither) {
+        this.koalaDither = koalaDither;
     }
 }

@@ -14,6 +14,8 @@
 			This is an experimental web version of <a href="https://github.com/EgonOlsen71/petsciiator" target="_blank">Petsciiator</a>, a tool to convert JPG/PNG images into Commodore PETSCII.<br/>
 			For convenience, the configuration will be saved in a cookie on your computer at each run.<br/><br/>
 			Uploaded images will only be stored during the conversion and will be deleted once your download starts.<br/><br/>
+			In addition, you can convert the uploaded image into Koala Painter format as well.
+			<br/><br/>
 			<b>Please note:</b> This server runs on a Raspberry Pi 4. So please don't expect great performance out of it.<br/>
 			Petsciiator will most likely run much faster on your local PC.<br/><br/>
 			<b>Please don't bookmark this page, as the IP can change every now and then.<br/>Use <a href="https://jpct.de/petscii" target="_blank">https://jpct.de/petscii</a> instead.</b>
@@ -38,10 +40,28 @@
 				<input class="uploadbutton" type="button" value="Convert images" onclick="convert()"></input>
 			</div>
 			<hr/>
-			<h3>Converter configuration</h3>
+			<h2>Converter configuration</h2>
 			<input id="resetbutton" class="uploadbutton" type="button" value="Reset configuration" onclick="resetConfiguration()"></input>
-			
-			<br/>
+			<hr/>
+			<h2>Koala Painter configuration</h2>
+				<p>Here, you can enable an additional conversion into the well known Koala Painter format.
+					<br/>This has no influence on the actual PETSCII-conversion.</p>
+				<span id="koaly" class="selection_group">
+					<label for="alphy">Enable Koala Painter converter:</label>
+					<input type="checkbox" id="koala" name="koala" value="1"/><label class="checkboxlabel" for="koala">Convert into Koala Painter format</label><br/>
+				</span>
+			<span id="koalydither" class="selection_group">
+				<br/>
+				<label for="koaladither">Dithering (Koala only):</label>
+				<select id="koaladither" name="koaladither" class="short">
+					<option value="100">100%</option>
+					<option value="50">50%</option>
+					<option value="10">10%</option>
+					<option value="0">Off</option>
+				</select>
+			</span>
+			<hr/>
+			<h2>PETSCII converter configuration</h2>
 			<span id="platformy" class="selection_group">
 				<label for="platformy">Target platform:</label>
 				<select id="platform" name="platform" class="short">

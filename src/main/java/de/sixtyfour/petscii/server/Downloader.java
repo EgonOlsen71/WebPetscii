@@ -92,6 +92,9 @@ public class Downloader extends HttpServlet {
 	private void delete(File bin, boolean includeParent) {
 		Logger.log("Deleting file: "+bin);
 		boolean ok1=bin.delete();
+		if (bin.toString().endsWith("koa")) {
+			new File(bin.toString()+".png").delete();
+		}
 		if (includeParent) {
 			boolean ok2 = bin.getParentFile().delete();
 			Logger.log("Status: " + ok1 + "/" + ok2);

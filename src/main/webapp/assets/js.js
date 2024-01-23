@@ -1,7 +1,7 @@
 var webAppPrefix = "/";
 
 var interval=null;
-var configName="petsciiconfig";
+var configName="petsciiconfig2";
 var previews = {};
 
 if (typeof String.prototype.startsWith !== 'function') {
@@ -198,8 +198,12 @@ function updateConsole() {
             var posPreview2=text.indexOf("~#~#", posPreview+4);
             var preview = text.substring(posPreview+4, posPreview2);
             text=text.substring(0, posPreview)+text.substring(posPreview2+5);
+			var addSize = "";
             if (!previews[preview]) {
-                jQuery("#preview").append("<img style='margin-right:10px' src='/WebPetscii/Download?preview="+preview+"'/>");
+				if (preview.endsWith(".koa.png")) {
+					addSize = "width='320' height='200'";
+				}
+                jQuery("#preview").append("<img style='margin-right:10px' "+addSize+" src='/WebPetscii/Download?preview="+preview+"'/>");
                 console.log("Added preview image: "+preview);
                 previews[preview]=true;
             }
