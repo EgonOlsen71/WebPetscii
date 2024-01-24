@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -41,6 +42,7 @@ public class Converter extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         Parameters params=readParameters(request);
 
         response.setCharacterEncoding("UTF-8");
@@ -279,7 +281,9 @@ public class Converter extends HttpServlet {
             Path from = Paths.get(oldFile);
             try {
                 Files.copy(from, to, StandardCopyOption.REPLACE_EXISTING);
-                os.print("~#~#"+fileName+"~#~#\n");
+                Logger.log("Copied file: "+fileName);
+                // No idea why ISO-8859-1...makes no sense...
+                os.print("~#~#"+new String(fileName.getBytes(StandardCharsets.UTF_8), "ISO-8859-1")+"~#~#\n");
                 out("Created preview image: "+imgFile);
             } catch(Exception e) {
                 Logger.log("Failed to copy file!", e);
@@ -289,20 +293,24 @@ public class Converter extends HttpServlet {
     }
 
     private void setupOutputStream(ServletOutputStream os) {
-        PrintStream ps = new PrintStream(new OutputStream() {
-            private int cnt = 0;
+        try {
+            PrintStream ps = new PrintStream(new OutputStream() {
+                private int cnt = 0;
 
-            @Override
-            public void write(int val) throws IOException {
-                os.write(val);
-                cnt++;
-                if (cnt >= 32 || (char) val=='\n') {
-                    os.flush();
-                    cnt = 0;
+                @Override
+                public void write(int val) throws IOException {
+                    os.write(val);
+                    cnt++;
+                    if (cnt >= 32 || (char) val == '\n') {
+                        os.flush();
+                        cnt = 0;
+                    }
                 }
-            }
-        });
-        com.sixtyfour.petscii.Logger.setThreadBoundPrintStream(ps);
+            }, true, "UTF-8");
+            com.sixtyfour.petscii.Logger.setThreadBoundPrintStream(ps);
+        } catch(Exception e) {
+            //
+        }
 
         try {
             for (int i=0; i<40; i++) {

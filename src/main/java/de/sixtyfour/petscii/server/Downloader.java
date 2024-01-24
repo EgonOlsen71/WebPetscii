@@ -34,6 +34,7 @@ public class Downloader extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		if (request.getParameter("preview") != null) {
 			doPreview(request, response);
 			return;

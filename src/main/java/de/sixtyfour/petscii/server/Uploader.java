@@ -46,6 +46,7 @@ public class Uploader extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/plain;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		ServletOutputStream os = response.getOutputStream();
 
 		try {
