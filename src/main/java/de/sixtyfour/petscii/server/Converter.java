@@ -254,7 +254,7 @@ public class Converter extends HttpServlet {
                     out("Koala conversion in progres...");
                     File koalaFile = Saver.createTempFileName(rawPic, folder, "koala.koa");
                     String koalaName = koalaFile.toString().replace("\\", "/");
-                    KoalaConverter.convert(pic.toString(), koalaName, new Vic2Colors(), 1,  ((float) params.getKoalaDither()/100f), true);
+                    KoalaConverter.convert(pic.toString(), koalaName, new Vic2Colors(), 1,  ((float) params.getKoalaDither()/100f), true, true);
                     res.add(koalaName);
                     addPreview(path, koalaName+".png", os);
                     out("Koala conversion done in "+(System.currentTimeMillis()-start)+"ms!");
