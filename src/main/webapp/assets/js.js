@@ -3,6 +3,7 @@ var webAppPrefix = "/";
 var interval=null;
 var configName="petsciiconfig2";
 var previews = {};
+var proxyPath="petscii-server";
 
 if (typeof String.prototype.startsWith !== 'function') {
 	String.prototype.startsWith = function(suffix) {
@@ -181,6 +182,7 @@ function convert() {
 		return;
 	}
 	saveConfiguration();
+	myform.action="/"+getApplicationPath()+"Convert";
 	myform.submit();
 	jQuery("#myform").hide(200);
 	jQuery("#output").show(200);
@@ -190,7 +192,15 @@ function convert() {
 function updateConsole() {
 	console.log("Updating console...");
 	var text=jQuery("#conversiontarget").contents().text();
-
+	if (text.length==0) {
+		jQuery("#console").text(jQuery("#console").text()+"...");
+		var txt = jQuery("#console").text();
+		if (txt.length-txt.lastIndexOf("\n")>40) {
+			jQuery("#console").text(jQuery("#console").text()+"\n");
+		}
+		jQuery(document).scrollTop(jQuery(document).height());
+		return;
+	}
     do {
         var rep = false;
         var posPreview=text.indexOf("~#~#");
@@ -203,7 +213,7 @@ function updateConsole() {
 				if (preview.endsWith(".koa.png")) {
 					addSize = "width='320' height='200'";
 				}
-                jQuery("#preview").append("<img style='margin-right:10px' "+addSize+" src='/WebPetscii/Download?preview="+preview+"'/>");
+                jQuery("#preview").append("<img style='margin-right:10px' "+addSize+" src='/"+getApplicationPath()+"Download?preview="+preview+"'/>");
                 console.log("Added preview image: "+preview);
                 previews[preview]=true;
             }
@@ -218,7 +228,7 @@ function updateConsole() {
 		text=text.substring(0,pos);
 		window.clearInterval(interval);
 		if (download.length>8) {
-			download ="/WebPetscii/Download?file="+download;
+			download ="/"+getApplicationPath()+"Download?file="+download;
 			document.getElementById("conversiontarget").src = download;
 		} else {
 			jQuery("#failed").show();
@@ -239,7 +249,7 @@ function storeTmpName(tmpName, fileName) {
 							+ "  (<a href=\"javascript:void(0)\" onclick=\"deleteFile(event.target, '"
 							+ tmpName + "')\">Remove</a>)</li>");
 	jQuery("#hiddennames").append(
-			"<input name=\"filelist\" type=\"hidden\" value=\""
+			"<input name=\"filelist[]\" type=\"hidden\" value=\""
 					+ tmpName + "\"/>");
 	jQuery("#uploaded").show(200);
 }
@@ -262,6 +272,14 @@ function uploadSelectedFile(value) {
 	uploadFile(value.files[0], element);
 }
 
+function getApplicationPath() {
+	var appPath = 'WebPetscii/';
+	if (window.location.search.includes('?route=')) {
+		appPath=proxyPath+"/?route=";
+	}
+	return appPath;
+}
+
 function uploadFile(file, element) {
 	var formData = new FormData();
 	formData.append('image', file);
@@ -269,7 +287,7 @@ function uploadFile(file, element) {
 
 	jElement.find('.uploadmsg').html('One moment please...');
 
-	jQuery.ajax(webAppPrefix + 'WebPetscii/Upload', {
+	jQuery.ajax(webAppPrefix + getApplicationPath() + 'Upload', {
 		processData : false,
 		contentType : false,
 		dataType : 'json',
@@ -295,7 +313,7 @@ function deleteFromServer(fileName) {
 		method : 'GET',
 		cache : false,
 		dataType : 'json',
-		url : webAppPrefix + 'WebPetscii/Upload',
+		url : webAppPrefix + getApplicationPath()+'Upload',
 		data : {
 			"url" : fileName
 		}

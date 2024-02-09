@@ -53,6 +53,9 @@ public class Converter extends HttpServlet {
         String path = sc.getInitParameter("uploadpath");
 
         String[] files = request.getParameterValues("filelist");
+        if (files==null || files.length==0) {
+            files = request.getParameterValues("filelist[]");
+        }
         List<String> res = new ArrayList<>();
         boolean ok = false;
 
