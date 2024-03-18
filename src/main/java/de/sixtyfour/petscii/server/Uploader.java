@@ -62,7 +62,7 @@ public class Uploader extends HttpServlet {
 
 			checkFile(fileName);
 
-			fileName = fileName.replace(" ", "-");
+			fileName = fileName.replace(" ", "-").replace("&", "-");
 			fileName = (int)(Math.random()*10000)+""+System.currentTimeMillis() + "_" + fileName;
 			Path target = Paths.get(path + fileName);
 			Logger.log("Copying file to: " + target);
