@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
-		<meta charset="utf-8"/>
-		<meta name="robots" content="noindex" />
-		<link href="style/default.css" rel="stylesheet" type="text/css" />
+		<meta charset="utf-8">
+		<meta name="robots" content="noindex">
+		<link href="style/default.css" rel="stylesheet" type="text/css">
 		<script src="assets/jquery.min.js"></script>
 		<script src="assets/js.cookie-2.2.1.min.js"></script>
 		<script src="assets/js.js"></script>
@@ -12,17 +12,16 @@
 	<body style="background:#ffffff">
 		<h2>Petsciiator - Web edition</h2>
 		<div>
-			This is an experimental web version of <a href="https://github.com/EgonOlsen71/petsciiator" target="_blank">Petsciiator</a>, a tool to convert JPG/PNG images into Commodore PETSCII.<br/>
-			For convenience, the configuration will be saved in a cookie on your computer at each run.<br/><br/>
-			Uploaded images will only be stored during the conversion and will be deleted once your download starts.<br/><br/>
+			This is an experimental web version of <a href="https://github.com/EgonOlsen71/petsciiator" target="_blank">Petsciiator</a>, a tool to convert JPG/PNG images into Commodore PETSCII.<br>
+			For convenience, the configuration will be saved in a cookie on your computer at each run.<br><br>
+			Uploaded images will only be stored during the conversion and will be deleted once your download starts.<br><br>
 			In addition, you can convert the uploaded image into Koala Painter format as well.
-			<br/><br/>
-			<b>Please note:</b> This server runs on a Raspberry Pi 4. So please don't expect great performance out of it.<br/>
-			Petsciiator will most likely run much faster on your local PC.<br/><br/>
-			<!--<b>Please don't bookmark this page, as the IP can change every now and then.<br/>Use <a href="https://jpct.de/petscii" target="_blank">https://jpct.de/petscii</a> instead.</b>-->
-
+			<br><br>
+			<b>Please note:</b> This server runs on a Raspberry Pi 4. So please don't expect great performance out of it.<br>
+			Petsciiator will most likely run much faster on your local PC.<br><br>
+			<!--<b>Please don't bookmark this page, as the IP can change every now and then.<br>Use <a href="https://jpct.de/petscii" target="_blank">https://jpct.de/petscii</a> instead.</b>-->
 		</div>
-		<hr/>
+		<hr>
 		<form id="myform" method="post" name="myform" target="conversiontarget" action="/WebPetscii/Convert">
 			<div class="uploadform well well-lg">
 				<b class="uploadmsg">Drop image here...</b>
@@ -36,23 +35,23 @@
 				<ul id="uploadedfiles"></ul>
 				<span id="hiddennames"></span>
 			</div>
-			<hr/>
+			<hr>
 			<div>
-				<input class="uploadbutton" type="button" value="Convert images" onclick="convert()"></input>
+				<input class="uploadbutton" type="button" value="Convert images" onclick="convert()">
 			</div>
-			<hr/>
+			<hr>
 			<h2>Converter configuration</h2>
-			<input id="resetbutton" class="uploadbutton" type="button" value="Reset configuration" onclick="resetConfiguration()"></input>
-			<hr/>
+			<input id="resetbutton" class="uploadbutton" type="button" value="Reset configuration" onclick="resetConfiguration()">
+			<hr>
 			<h2>Koala Painter configuration</h2>
 				<p>Here, you can enable an additional conversion into the well known Koala Painter format.
-					<br/>This has no influence on the actual PETSCII-conversion.</p>
+					<br>This has no influence on the actual PETSCII-conversion.</p>
 				<span id="koaly" class="selection_group">
 					<label for="alphy">Enable Koala Painter converter:</label>
-					<input type="checkbox" id="koala" name="koala" value="1"/><label class="checkboxlabel" for="koala">Convert into Koala Painter format</label><br/>
+					<input type="checkbox" id="koala" name="koala" value="1"><label class="checkboxlabel" for="koala">Convert into Koala Painter format</label><br>
 				</span>
 			<span id="koalydither" class="selection_group">
-				<br/>
+				<br>
 				<label for="koaladither">Dithering (Koala only):</label>
 				<select id="koaladither" name="koaladither" class="short">
 					<option value="100">100%</option>
@@ -61,7 +60,7 @@
 					<option value="0">Off</option>
 				</select>
 			</span>
-			<hr/>
+			<hr>
 			<h2>PETSCII converter configuration</h2>
 			<span id="platformy" class="selection_group">
 				<label for="platformy">Target platform:</label>
@@ -70,9 +69,9 @@
 					<option value="264">264 series</option>
 				</select>
 			</span>
-			<br class="breaky"/>
+			<br class="breaky">
 			<span id="colormappy" class="selection_group">
-				<br/>
+				<br>
 				<label for="colormappy">Color mapper:</label>
 				<select id="colormapper" name="colormapper" class="short">
 					<option value="0">Colorful</option>
@@ -80,14 +79,16 @@
 					<option value="2">Soft</option>
 				</select>
 			</span>
-			<br class="breaky"/><br/>
+			<br class="breaky"><br>
 			<span class="input_group selection">
 				<label>Background color:</label>
-				<input class="input-radio" type="radio" id="background1" checked="checked" name="backgrounddefault" value="1"/><label class="radiolabel" for="background1">Auto detect</label>
-				<input class="input-radio" type="radio" id="background2" name="backgrounddefault" value="0"/><label class="radiolabel" for="background2">...specify color</label>
-				<input class="input-field veryshort" placeholder="Color index" id="background" type="text" name="background" style="display:none"/>
+				<input class="input-radio" type="radio" id="background1" checked="checked" name="backgrounddefault" value="1">
+				<label class="radiolabel" for="background1">Auto detect</label>
+				<input class="input-radio" type="radio" id="background2" name="backgrounddefault" value="0">
+				<label class="radiolabel" for="background2">...specify color</label>
+				<input class="input-field veryshort" placeholder="Color index" id="background" type="text" name="background" style="display:none">
 			</span>
-			<br class="breaky"/>
+			<br class="breaky">
 			<span id="prescaly" class="selection_group">
 				<label for="prescaly">Image prescale:</label>
 				<select id="prescale" name="prescale" class="short">
@@ -97,13 +98,15 @@
 					<option value="4">1/4</option>
 				</select>
 			</span>
-			<br class="breaky"/><br/>
+			<br class="breaky"><br>
 			<span id="alphy" class="selection_group">
 				<label for="alphy">Charset settings:</label>
-				<input type="checkbox" id="alpha" name="alpha" value="1"/><label class="checkboxlabel" for="alpha">Exclude alphanumeric chars</label><br/>
-				<input type="checkbox" id="lower" name="lower" value="1"/><label class="checkboxlabel" for="lower">Use lower case chars</label>
+				<input type="checkbox" id="alpha" name="alpha" value="1">
+				<label class="checkboxlabel" for="alpha">Exclude alphanumeric chars</label><br>
+				<input type="checkbox" id="lower" name="lower" value="1">
+				<label class="checkboxlabel" for="lower">Use lower case chars</label>
 			</span>
-			<br class="breaky"/>
+			<br class="breaky">
 			<span id="boosty" class="selection_group">
 				<label for="boosty">Symbol boost:</label>
 				<select id="boost" name="boost" class="short">
@@ -113,18 +116,20 @@
 					<option value="20">Extreme</option>
 				</select>
 			</span>
-			<hr/>
+			<hr>
 			<div>
-				<input class="uploadbutton" type="button" value="Convert images" onclick="convert()"></input>
+				<input class="uploadbutton" type="button" value="Convert images" onclick="convert()">
 			</div>
 		</form>
 		<div id="output" style="display:none;">
 			<pre class="console" id="console">Converting...</pre>
-			<hr/>
+			<hr>
 			<div id="preview"></div>
-			<hr/>
-			<div id="failed" style="display:none;"><h2>Conversion failed...please see console output for more details!</h2></div>
-			<input id="runagain" class="uploadbutton" type="button" style="display:none;" value="Convert more images" onclick="document.location=document.location"></input>
+			<hr>
+			<div id="failed" style="display:none;">
+				<h2>Conversion failed...please see console output for more details!</h2>
+			</div>
+			<input id="runagain" class="uploadbutton" type="button" style="display:none;" value="Convert more images" onclick="document.location=document.location">
 		</div>
 		<iframe id="conversiontarget" name="conversiontarget" src="empty.html" style="display:none;"></iframe>
 	</body>
