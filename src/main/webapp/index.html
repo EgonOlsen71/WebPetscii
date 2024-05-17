@@ -111,6 +111,15 @@
 										<option value="264">264 series</option>
 									</select>
 								</div>
+								<div id="prescaly" class="selection_group">
+									<label class="label" for="prescale">Image prescale:</label>
+									<select id="prescale" name="prescale" class="form-control">
+										<option value="1">None</option>
+										<option value="2">1/2</option>
+										<option value="3">1/3</option>
+										<option value="4">1/4</option>
+									</select>
+								</div>
 								<div id="colormappy" class="selection_group">
 									<label class="label" for="colormapper">Color mapper:</label>
 									<select id="colormapper" name="colormapper" class="form-control">
@@ -131,13 +140,13 @@
 									</div>
 									<input class="form-control" placeholder="Color index" id="background" type="text" name="background" style="display:none">
 								</div>
-								<div id="prescaly" class="selection_group">
-									<label class="label" for="prescale">Image prescale:</label>
-									<select id="prescale" name="prescale" class="form-control">
-										<option value="1">None</option>
-										<option value="2">1/2</option>
-										<option value="3">1/3</option>
-										<option value="4">1/4</option>
+								<div id="boosty" class="selection_group">
+									<label class="label" for="boost">Symbol boost:</label>
+									<select id="boost" name="boost" class="form-control">
+										<option value="10">None</option>
+										<option value="12">Mild</option>
+										<option value="15">High</option>
+										<option value="20">Extreme</option>
 									</select>
 								</div>
 								<div id="alphy" class="selection_group">
@@ -150,15 +159,6 @@
 										<input type="checkbox" id="lower" name="lower" value="1">
 										<label class="label" for="lower">Use lower case chars</label>
 									</div>
-								</div>
-								<div id="boosty" class="selection_group">
-									<label class="label" for="boost">Symbol boost:</label>
-									<select id="boost" name="boost" class="form-control">
-										<option value="10">None</option>
-										<option value="12">Mild</option>
-										<option value="15">High</option>
-										<option value="20">Extreme</option>
-									</select>
 								</div>
 							</fieldset>
 							<fieldset>
