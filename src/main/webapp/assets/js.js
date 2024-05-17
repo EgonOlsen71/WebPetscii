@@ -211,9 +211,9 @@ function updateConsole() {
 			var addSize = "";
             if (!previews[preview]) {
 				if (preview.endsWith(".koa.png")) {
-					addSize = "width='320' height='200'";
+					addClass = "class='previewKoala'";
 				}
-                jQuery("#preview").append("<img style='margin-right:10px' "+addSize+" src='/"+getApplicationPath()+"Download?preview="+preview+"'/>");
+                jQuery("#preview").append("<img "+addClass+" src='/"+getApplicationPath()+"Download?preview="+preview+"'/>");
                 console.log("Added preview image: "+preview);
                 previews[preview]=true;
             }
