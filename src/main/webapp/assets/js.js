@@ -186,6 +186,7 @@ function convert() {
 	myform.submit();
 	jQuery("#myform").hide(200);
 	jQuery("#output").show(200);
+	jQuery(".convert").get(0).scrollIntoView({behavior: 'smooth'});
 	interval=window.setInterval(function() {updateConsole()}, 500);
 }
 
