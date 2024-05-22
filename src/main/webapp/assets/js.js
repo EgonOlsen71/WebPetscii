@@ -213,6 +213,8 @@ function updateConsole() {
             if (!previews[preview]) {
 				if (preview.endsWith(".koa.png")) {
 					addClass = "class='previewKoala'";
+				} else {
+				    addClass = "";
 				}
                 jQuery("#preview").append("<img "+addClass+" src='/"+getApplicationPath()+"Download?preview="+preview+"'/>");
                 console.log("Added preview image: "+preview);
