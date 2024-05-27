@@ -60,8 +60,23 @@ body {
 	color: #FFC453;
 	color: #887ECB;
 	color: #6ABFC6;
+	color: #A9FF9F;
 	font-size: 1rem;
 	text-align: right;
+}
+
+.wrap > header::before {
+	content: '';
+	background: linear-gradient(45deg, #2E2C9B 10%, #8E3C97, #706DEB, #56AC4D 90%);
+	background: linear-gradient(45deg, #706DEB 10%, #8E3C97, #56AC4D, #75CEC8 90%);
+	background-size: 640% 640%;
+	animation: gradient 64s ease-in-out infinite;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: -1;
 }
 
 .wrap > main {
