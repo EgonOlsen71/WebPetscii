@@ -186,13 +186,14 @@ function convert() {
 	myform.submit();
 	jQuery("#myform").hide(200);
 	jQuery("#output").show(200);
+	jQuery(".convert").get(0).scrollIntoView({behavior: 'smooth'});
 	interval=window.setInterval(function() {updateConsole()}, 500);
 }
 
 function updateConsole() {
 	console.log("Updating console...");
 	var text=jQuery("#conversiontarget").contents().text();
-	if (text.length==0) {
+	if (text.length<=1) {
 		jQuery("#console").text(jQuery("#console").text()+"...");
 		var txt = jQuery("#console").text();
 		if (txt.length-txt.lastIndexOf("\n")>40) {
@@ -211,9 +212,11 @@ function updateConsole() {
 			var addSize = "";
             if (!previews[preview]) {
 				if (preview.endsWith(".koa.png")) {
-					addSize = "width='320' height='200'";
+					addClass = "class='previewKoala'";
+				} else {
+				    addClass = "";
 				}
-                jQuery("#preview").append("<img style='margin-right:10px' "+addSize+" src='/"+getApplicationPath()+"Download?preview="+preview+"'/>");
+                jQuery("#preview").append("<img "+addClass+" src='/"+getApplicationPath()+"Download?preview="+preview+"'/>");
                 console.log("Added preview image: "+preview);
                 previews[preview]=true;
             }

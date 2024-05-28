@@ -1,130 +1,214 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
-		<meta charset="utf-8"/>
-		<meta name="robots" content="noindex" />
-		<link href="style/default.css" rel="stylesheet" type="text/css" />
-		<script src="assets/jquery.min.js"></script>
-		<script src="assets/js.cookie-2.2.1.min.js"></script>
-		<script src="assets/js.js"></script>
+		<meta charset="utf-8">
+		<meta name="robots" content="noindex">
+		<link href="./style/anim8.css" rel="stylesheet" type="text/css">
+		<link href="./style/default.css" rel="stylesheet" type="text/css">
+		<script src="./assets/jquery.min.js"></script>
+		<script src="./assets/js.cookie-2.2.1.min.js"></script>
+		<script src="./assets/js.js"></script>
 		<title>Petsciiator - Web edition</title>
 	</head>
-	<body style="background:#ffffff">
-		<h2>Petsciiator - Web edition</h2>
-		<div>
-			This is an experimental web version of <a href="https://github.com/EgonOlsen71/petsciiator" target="_blank">Petsciiator</a>, a tool to convert JPG/PNG images into Commodore PETSCII.<br/>
-			For convenience, the configuration will be saved in a cookie on your computer at each run.<br/><br/>
-			Uploaded images will only be stored during the conversion and will be deleted once your download starts.<br/><br/>
-			In addition, you can convert the uploaded image into Koala Painter format as well.
-			<br/><br/>
-			<b>Please note:</b> This server runs on a Raspberry Pi 4. So please don't expect great performance out of it.<br/>
-			Petsciiator will most likely run much faster on your local PC.<br/><br/>
-			<!--<b>Please don't bookmark this page, as the IP can change every now and then.<br/>Use <a href="https://jpct.de/petscii" target="_blank">https://jpct.de/petscii</a> instead.</b>-->
-			
+	<body>
+		<div class="wrap">
+			<header>
+				<div class="container">
+					<h1>
+						<span class="logoPetsciiator">
+							<svg viewBox="0 0 249.58369 18.00266" xmlns="http://www.w3.org/2000/svg" width="500" height="36">
+								<path d="m0 4.80029h21.21894c0 1.104 0 2.25635-1.24805 2.25635h-14.21728l-1-.00043h-4.75244v10.94525h4.75244v-6.55273h16.46533c4.70459 0 4.70459-2.52002 4.70459-5.64014 0-3.28857 0-5.59277-4.70459-5.59277h-21.21777"/>
+								<path d="m65.28144 6.93716h4.46436v11.06431h-4.46436z"/>
+								<path d="m80.06708 4.80029v-4.53613h-25.17822v4.58398"/>
+								<path d="m179.29761 7.0574h4.46436v10.94525h-4.46436z"/>
+								<path d="m194.08326 4.80149v-4.53614h-25.17823v4.58399"/>
+								<path d="m223.82105 6.91162-.01569 11.08984h4.65723v-6.62451h15.64941l.79199 6.62451h4.67969l-.83984-6.62451c0-1.22412-.67188-1.65625-1.17578-2.40039.64746-.93604 1.00781-1.05615 1.00781-3.09619 0-4.22412 0-5.61621-4.46387-5.61621h-20.28223l-.00714 4.53564 20.28937.00049c0 1.08008-.2168 2.1123-1.05664 2.1123"/>
+								<path d="m27.88886 6.93716v5.41172c0 3.40821 2.3042 5.64063 5.68848 5.64063h19.17774v-4.63233h-19.17774c-.93604 0-1.05615-.64795-1.05615-1.51221v-.4082h17.23389v-4.49961"/>
+								<path d="m52.75508 4.78833v-4.56055l-19.17774.02441c-2.86121 0-5.10193 1.90065-5.58765 4.53725"/>
+								<path d="m108.0749 4.77637v-4.51221h-19.9458c-4.85577 0-5.84845 1.76153-6.01727 4.51299"/>
+								<path d="m82.1236 6.93716c.2298 2.66937 1.51892 4.51158 6.00549 4.51158h16.56152c-.02441 1.17627-.04834 2.1123-1.48828 2.1123h-19.99365v4.44043h20.08984c5.13623 0 5.97607-2.25635 5.97607-5.44824 0-3.19238-.79199-5.6167-6.02441-5.6167"/>
+								<path d="m117.14472 13.32129c-.93604 0-1.05615-.62451-1.05615-1.48828v-4.89585h-4.58447v5.66392c0 3.31201 2.35254 5.37646 5.66455 5.37646h19.56152v-4.65625z"/>
+								<path d="m136.68232 4.77637v-4.53662h-19.48975c-3.02679 0-5.11023 1.93609-5.58972 4.53741"/>
+								<path d="m215.91181 4.80029c.98438 0 1.00781.74414 1.00781 1.48828v5.80859c0 .64795 0 1.24805-1.05566 1.24805h-13.68164c-.93555 0-1.05566-.62402-1.05566-1.48828v-4.80072h-4.58496v5.56879c0 3.3125 2.35254 5.37646 5.66504 5.37646h13.70508c3.4082 0 5.64062-1.94434 5.64062-5.37646v-6.74463c0-3.31201-1.9209-5.64062-5.64062-5.64062h-13.68164c-3.02655 0-5.10944 1.95596-5.58954 4.56009"/>
+								<path d="m139.05634.23975h4.94434v4.53741h-4.94434z"/>
+								<path d="m139.05634 6.93716h4.94434v11.06431h-4.94434z"/>
+								<path d="m146.25556.23975h4.94434v4.53741h-4.94434z"/>
+								<path d="m146.25556 6.93716h4.94434v11.06431h-4.94434z"/>
+								<path d="m163.8699 9.62451h-5.84766v-2.68738l-4.48828.00002v11.06431h4.48828v-4.56055h9.66406l4.53711 4.56055h6.03223l-16.58496-16.32128c-1.15234-1.12842-2.3291-1.68018-3.64844-1.68018-2.30469 0-4.48828 1.05615-4.48828 4.15234v.62482h5.50874"/>
+							</svg>
+						</span>
+						<span class="name">
+							Petsciiator
+						</span>
+						<small>
+							Web edition
+						</small>
+					</h1>
+				</div>
+			</header>
+			<main>
+				<section class="description">
+					<div class="container">
+						<header>
+							<h2>What is Petsciiator - Web edition?</h2>
+						</header>
+						<p>
+							This is an experimental web version of <a href="https://github.com/EgonOlsen71/petsciiator" target="_blank">Petsciiator</a>,
+							a tool to convert JPG/PNG images into Commodore PETSCII.
+							For convenience, the configuration will be saved in a cookie on your computer at each run.
+						</p>
+						<p>
+							Uploaded images will only be stored during the conversion and will be deleted once your download starts.
+						</p>
+						<p>
+							In addition, you can convert the uploaded image into Koala Painter format as well.
+						</p>
+						<p>
+							<b>Please note:</b> This server runs on a Raspberry Pi 4.
+							So please don't expect great performance out of it.<br>
+							Petsciiator will most likely run much faster on your local PC.
+						</p>
+						<!--
+							<p>
+								<b>Please don't bookmark this page, as the IP can change every now and then.<br>
+								Use <a href="https://jpct.de/petscii" target="_blank">https://jpct.de/petscii</a> instead.</b>
+							</p>
+						-->
+					</div>
+				</section>
+				<section class="convert">
+					<div class="container">
+						<form id="myform" method="post" name="myform" target="conversiontarget" action="/WebPetscii/Convert">
+							<div class="uploadWrap">
+								<div>
+									<div class="uploadform form-control well">
+										<span class="uploadmsg">Drag and drop image here...</span>
+									</div>
+								</div>
+								<div class="selection_group">
+									<p class="label">...or select one:</p>
+									<iframe class="uploadFrame" src="./upload.html"></iframe>
+								</div>
+							</div>
+							<div id="uploaded">
+								<div class="selection_group">
+									<label>Uploaded images:</label>
+								</div>
+								<ul id="uploadedfiles"></ul>
+								<span id="hiddennames"></span>
+							</div>
+							<div class="formAction">
+								<input class="btn btn-secondary reset" type="button" value="Reset configuration" onclick="resetConfiguration()">
+								<input class="btn uploadbutton" type="button" value="Convert images" onclick="convert()">
+							</div>
+							<div class="spaceman"></div>
+							<h3>Converter configuration</h3>
+							<fieldset>
+								<legend class="h4">PETSCII converter configuration</legend>
+								<div id="platformy" class="selection_group">
+									<label class="label" for="platform">Target platform:</label>
+									<select id="platform" name="platform" class="form-control">
+										<option value="c64">C64</option>
+										<option value="264">264 series</option>
+									</select>
+								</div>
+								<div id="prescaly" class="selection_group">
+									<label class="label" for="prescale">Image prescale:</label>
+									<select id="prescale" name="prescale" class="form-control">
+										<option value="1">None</option>
+										<option value="2">1/2</option>
+										<option value="3">1/3</option>
+										<option value="4">1/4</option>
+									</select>
+								</div>
+								<div id="colormappy" class="selection_group">
+									<label class="label" for="colormapper">Color mapper:</label>
+									<select id="colormapper" name="colormapper" class="form-control">
+										<option value="0">Colorful</option>
+										<option value="1">Dither</option>
+										<option value="2">Soft</option>
+									</select>
+								</div>
+								<div class="input_group">
+									<p class="label">Background color:</p>
+									<div class="form-check">
+										<input class="input-radio" type="radio" id="background1" checked="checked" name="backgrounddefault" value="1">
+										<label class="radiolabel" for="background1">Auto detect background-color</label>
+									</div>
+									<div class="form-check">
+										<input class="input-radio" type="radio" id="background2" name="backgrounddefault" value="0">
+										<label class="radiolabel" for="background2">Specify background-color</label>
+									</div>
+									<input class="form-control" placeholder="Color index" id="background" type="text" name="background" style="display:none">
+								</div>
+								<div id="boosty" class="selection_group">
+									<label class="label" for="boost">Symbol boost:</label>
+									<select id="boost" name="boost" class="form-control">
+										<option value="10">None</option>
+										<option value="12">Mild</option>
+										<option value="15">High</option>
+										<option value="20">Extreme</option>
+									</select>
+								</div>
+								<div id="alphy" class="selection_group">
+									<p class="label">Charset settings:</p>
+									<div class="form-check">
+										<input type="checkbox" id="alpha" name="alpha" value="1">
+										<label class="label" for="alpha">Exclude alphanumeric chars</label><br>
+									</div>
+									<div class="form-check">
+										<input type="checkbox" id="lower" name="lower" value="1">
+										<label class="label" for="lower">Use lower case chars</label>
+									</div>
+								</div>
+							</fieldset>
+							<fieldset>
+								<legend class="h4">Koala Painter configuration</legend>
+								<p>
+									You can enable an additional conversion into the well known Koala Painter format.
+									This has no influence on the actual PETSCII-conversion.
+								</p>
+								<div id="koaly" class="selection_group">
+									<p class="label">Enable Koala Painter converter:</p>
+									<div class="form-check">
+										<input type="checkbox" id="koala" name="koala" value="1">
+										<label class="label" for="koala">Additionally convert into Koala Painter format</label>
+									</div>
+								</div>
+								<div id="koalydither" class="selection_group">
+									<label class="label" for="koaladither">Dithering (Koala only):</label>
+									<select id="koaladither" name="koaladither" class="form-control">
+										<option value="100">100%</option>
+										<option value="50" selected="selected">50%</option>
+										<option value="10">10%</option>
+										<option value="0">Off</option>
+									</select>
+								</div>
+							</fieldset>
+							<div class="formAction">
+								<input class="btn btn-secondary reset" type="button" value="Reset configuration" onclick="resetConfiguration()">
+								<input class="btn uploadbutton" type="button" value="Convert images" onclick="convert()">
+							</div>
+						</form>
+					</div>
+				</section>
+				<section class="result">
+					<div class="container">
+						<div id="output" style="display:none;">
+							<pre class="console" id="console">Converting...</pre>
+							<hr>
+							<div id="preview"></div>
+							<hr>
+							<div id="failed" class="error" style="display:none;">
+								<h2>Conversion failed...please see console output for more details!</h2>
+							</div>
+							<input id="runagain" class="btn uploadbutton" type="button" style="display:none;" value="Convert more images" onclick="document.location=document.location">
+						</div>
+						<iframe id="conversiontarget" name="conversiontarget" src="empty.html" style="display:none;"></iframe>
+					</div>
+				</section>
+			</main>
+			<!--<footer></footer>-->
 		</div>
-		<hr/>
-		<form id="myform" method="post" name="myform" target="conversiontarget" action="/WebPetscii/Convert">
-			<div class="uploadform well well-lg">
-				<b class="uploadmsg">Drop image here...</b>
-			</div>
-			<div>
-			<span class="selection_group"><label>...or select one: </label><iframe class="uploadframe" src="upload.html"></iframe></span>
-			</div>
-			<div style="clear:both"></div>
-			<div id="uploaded">
-				<span class="selection_group"><label>Uploaded images:</label></span>
-				<ul id="uploadedfiles"></ul>
-				<span id="hiddennames"></span>
-			</div>
-			<hr/>
-			<div>
-				<input class="uploadbutton" type="button" value="Convert images" onclick="convert()"></input>
-			</div>
-			<hr/>
-			<h2>Converter configuration</h2>
-			<input id="resetbutton" class="uploadbutton" type="button" value="Reset configuration" onclick="resetConfiguration()"></input>
-			<hr/>
-			<h2>Koala Painter configuration</h2>
-				<p>Here, you can enable an additional conversion into the well known Koala Painter format.
-					<br/>This has no influence on the actual PETSCII-conversion.</p>
-				<span id="koaly" class="selection_group">
-					<label for="alphy">Enable Koala Painter converter:</label>
-					<input type="checkbox" id="koala" name="koala" value="1"/><label class="checkboxlabel" for="koala">Convert into Koala Painter format</label><br/>
-				</span>
-			<span id="koalydither" class="selection_group">
-				<br/>
-				<label for="koaladither">Dithering (Koala only):</label>
-				<select id="koaladither" name="koaladither" class="short">
-					<option value="100">100%</option>
-					<option value="50" selected="selected">50%</option>
-					<option value="10">10%</option>
-					<option value="0">Off</option>
-				</select>
-			</span>
-			<hr/>
-			<h2>PETSCII converter configuration</h2>
-			<span id="platformy" class="selection_group">
-				<label for="platformy">Target platform:</label>
-				<select id="platform" name="platform" class="short">
-					<option value="c64">C64</option>
-					<option value="264">264 series</option>
-				</select>
-			</span>
-			<br class="breaky"/>
-			<span id="colormappy" class="selection_group">
-				<br/>
-				<label for="colormappy">Color mapper:</label>
-				<select id="colormapper" name="colormapper" class="short">
-					<option value="0">Colorful</option>
-					<option value="1">Dither</option>
-					<option value="2">Soft</option>
-				</select>
-			</span>
-			<br class="breaky"/><br/>
-			<span class="input_group selection">
-				<label>Background color:</label>
-				<input class="input-radio" type="radio" id="background1" checked="checked" name="backgrounddefault" value="1"/><label class="radiolabel" for="background1">Auto detect</label>
-				<input class="input-radio" type="radio" id="background2" name="backgrounddefault" value="0"/><label class="radiolabel" for="background2">...specify color</label>
-				<input class="input-field veryshort" placeholder="Color index" id="background" type="text" name="background" style="display:none"/>
-			</span>
-			<br class="breaky"/>
-			<span id="prescaly" class="selection_group">
-				<label for="prescaly">Image prescale:</label>
-				<select id="prescale" name="prescale" class="short">
-					<option value="1">None</option>
-					<option value="2">1/2</option>
-					<option value="3">1/3</option>
-					<option value="4">1/4</option>
-				</select>
-			</span>
-			<br class="breaky"/><br/>
-			<span id="alphy" class="selection_group">
-				<label for="alphy">Charset settings:</label>
-				<input type="checkbox" id="alpha" name="alpha" value="1"/><label class="checkboxlabel" for="alpha">Exclude alphanumeric chars</label><br/>
-				<input type="checkbox" id="lower" name="lower" value="1"/><label class="checkboxlabel" for="lower">Use lower case chars</label>
-			</span>
-			<br class="breaky"/>
-			<span id="boosty" class="selection_group">
-				<label for="boosty">Symbol boost:</label>
-				<select id="boost" name="boost" class="short">
-					<option value="10">None</option>
-					<option value="12">Mild</option>
-					<option value="15">High</option>
-					<option value="20">Extreme</option>
-				</select>
-			</span>
-			<hr/>
-			<div>
-				<input class="uploadbutton" type="button" value="Convert images" onclick="convert()"></input>
-			</div>
-		</form>
-		<div id="output" style="display:none;">
-			<pre class="console" id="console">Converting...</pre>
-			<hr/>
-			<div id="preview"></div>
-			<hr/>
-			<div id="failed" style="display:none;"><h2>Conversion failed...please see console output for more details!</h2></div>
-			<input id="runagain" class="uploadbutton" type="button" style="display:none;" value="Convert more images" onclick="document.location=document.location"></input>
-		</div>
-		<iframe id="conversiontarget" name="conversiontarget" src="empty.html" style="display:none;"></iframe>
 	</body>
 </html>
