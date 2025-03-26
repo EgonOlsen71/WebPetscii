@@ -212,7 +212,8 @@ public class Converter extends HttpServlet {
 
             try {
                 String picName = pic.getName().toLowerCase();
-                if (!picName.endsWith(".jpg") && !picName.endsWith(".jpeg") && !picName.endsWith(".png") && !picName.endsWith(".webp")) {
+                boolean matches = Arrays.asList(Uploader.ALLOWED_EXTENSIONS).stream().anyMatch(p -> picName.endsWith(p));
+                if (!matches) {
                     out("Unsupported file format and/or extension: " + pic.getName());
                     continue;
                 }

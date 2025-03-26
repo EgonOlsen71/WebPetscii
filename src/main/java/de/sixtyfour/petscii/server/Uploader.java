@@ -35,7 +35,7 @@ public class Uploader extends HttpServlet {
 
 	private final static long MAX_FILE_SIZE=1024*1024*2;
 	
-	private final static String[] ALLOWED_EXTENSIONS = { ".jpg", ".png", ".jpeg", "webp" };
+	public final static String[] ALLOWED_EXTENSIONS = { ".jpg", ".png", ".jpeg", "webp" };
 
 
 	public Uploader() {
