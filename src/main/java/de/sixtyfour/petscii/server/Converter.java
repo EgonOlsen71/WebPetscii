@@ -191,8 +191,6 @@ public class Converter extends HttpServlet {
             out("Converting " + srcFile);
             file = path + file;
 
-            String targetFile = new File(srcFile).getName().replace(".jpg", "").replace(".JPG", "")
-                    .replace(".png", "").replace(".PNG", "").replace(".JPEG", "").replace(".jpeg", "")+".";
             String targetDir = path + UUID.randomUUID() + "/";
             new File(targetDir).mkdirs();
 
@@ -255,13 +253,20 @@ public class Converter extends HttpServlet {
 
                 if (params.isKoala()) {
                     long start = System.currentTimeMillis();
-                    out("Koala conversion in progres...");
+                    out("Koala conversion in progress...");
                     File koalaFile = Saver.createTempFileName(rawPic, folder, "koala.koa");
                     String koalaName = koalaFile.toString().replace("\\", "/");
                     KoalaConverter.convert(pic.toString(), koalaName, new Vic2Colors(), 1,  ((float) params.getKoalaDither()/100f), true, true);
                     res.add(koalaName);
                     addPreview(path, koalaName+".png", os);
-                    out("Koala conversion done in "+(System.currentTimeMillis()-start)+"ms!");
+
+                    File hiresFile = Saver.createTempFileName(rawPic, folder, "hires.hed");
+                    String hiresName = hiresFile.toString().replace("\\", "/");
+                    HiEddiConverter.convert(pic.toString(), hiresName, new Vic2Colors(), 1,  ((float) params.getKoalaDither()/100f), true, true);
+                    res.add(hiresName);
+                    addPreview(path, hiresName+".png", os);
+
+                    out("Koala/Hires conversion done in "+(System.currentTimeMillis()-start)+"ms!");
                 }
 
                 out(srcFile + " converted in " + (System.currentTimeMillis() - s) + "ms!\n\n");
