@@ -120,7 +120,7 @@ public class Converter extends HttpServlet {
                 } finally {
                     File toDel = new File(file);
                     toDel.delete();
-                    if (file.endsWith(".koa")) {
+                    if (file.endsWith(".koa") || file.endsWith(".hed")) {
                         new File(file+".png").delete();
                     }
                     if (!dirName.equals(lastDir)) {
